@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Planetstafet</title>
+
+  <style>
+    @font-face {
+  font-family: "Sono";
+  src: url("Sono-Regular.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+    
+    
+    body {
+  font-family: "Sono", sans-serif;
+
+  background-image: url("background.avif");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  margin: 0;
+  padding: 30px 20px;
+  color: white;
+
+  min-height: 100vh;
+}
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* POST BUTTONS */
+
+    .post-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    /* Dette er startside knapperne */
+    .post-button {
+      padding: 22px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background: #0D0D0D;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Dette er også startside knapperne, men den farve der skal være når man har cursor over knappen */
+    .post-button:hover {
+      background: #212121;
+    }
+
+    /* POST PAGE */
+
+    #postPage {
+      display: none;
+    }
+
+    select {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      background: white;
+      margin-bottom: 20px;
+    }
+/* Dette er selve boksen inde på hver post */
+    .post-information {
+  background: rgba(0, 0, 0, 0.88);
+  color: #F2F2F2;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+    .post-information h2 {
+  margin-top: 0;
+  font-size: 30px;
+  text-align: center;
+}
+
+    .post-description {
+  font-size: 17px;
+  line-height: 1.6;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.post-image {
+  width: 90%;
+  border-radius: 12px;
+  margin: 10px auto 25px auto;
+  display: block;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #eeeeee;
+  margin: 25px 0;
+}
+
+.assignment {
+  background: #292929;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.assignment h3 {
+  margin-top: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.assignment p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.hint {
+  margin-top: 18px;
+  padding: 15px;
+  background: #fff8dc;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+    .back-button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #292929;
+      color: #F2F2F2;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- START PAGE -->
+
+  <div id="startPage">
+
+    <h1>Planetariums Planetstafet</h1>
+
+    <p class="intro">
+      Tag på eventyr blandt solssystemets planeter, og lær mere om det, der gør dem unikke. Find en planet, og klik på den i menuen herunder, for at lære mere om planeten samt hvad du skal gøre på posten. 
+    </p>
+
+    <div class="post-buttons">
+
+      <button class="post-button" onclick="openPost(1)">
+        Merkur
+      </button>
+
+      <button class="post-button" onclick="openPost(2)">
+        Venus
+      </button>
+
+      <button class="post-button" onclick="openPost(3)">
+        Mars
+      </button>
+
+      <button class="post-button" onclick="openPost(4)">
+        Jupiter
+      </button>
+
+      <button class="post-button" onclick="openPost(5)">
+        Saturn
+      </button>
+
+      <button class="post-button" onclick="openPost(6)">
+        Uranus & Neptun
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- POST PAGE -->
+
+  <div id="postPage">
+
+    <div
+      id="postInformation"
+      class="post-information">
+    </div>
+
+    <button
+      class="back-button"
+      onclick="goBack()">
+
+      ← Tilbage til oversigt over hele solsystemet
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const posts = {
+
+    1: `
+  <h2>Merkur</h2>
+
+  <img
+    class="post-image"
+    src="Merkur.png"
+    alt="Merkur"
+  >
+
+
+  <p class="post-description">
+    Velkommen til solssystemets første planet, Merkur! Merkur er faktsik den hurtigste planet i hele solsystemet, for den kommer rundt om solen på bare 88 dage. Måske kan I gøre den kunsten efter? 
+  </p>
+
+
+  <hr class="divider">
+
+  <div class="assignment">
+
+    <h3>Hvad skal du gøre her?</h3>
+
+    <p>
+      Nu er det tid til at se om du kan hamle op med Merkur. Løb fra start til slut, og tag tid på hvor hurtigt du kan gøre det. Se hvem af jeres gruppe, der er hurtigst!  
+    </p>
+  </div>
+
+  <img
+    class = "post-image"
+    src = "merkur2.png"
+    alt = "Merkur opgang"
+  >
+`,
+
+    2: `
+      <h2>Venus</h2>
+
+  <img
+    class="post-image"
+    src="Venus.png"
+    alt="Venus"
+  >
+
+
+  <p class="post-description">
+    Velkommen til Venus, solsystemets 2. planet. Venus er en syret verden (i bogstaveligste forstand), for den er både den allervarmeste, og så har den også syreregn. Fordi, den er så varm (over 450 grader!), har den også rigtig mange aktive vulkaner.  
+  </p>
+
+
+  <hr class="divider">
+
+  <div class="assignment">
+
+    <h3>Hvad skal du gøre her?</h3>
+
+    <p>
+  På denne post skal I se, om I kan lave en vulkan ligesom dem på Venus.
+  I laver én vulkan samlet i jeres gruppe, så husk det gode samarbejde!
+</p>
+
+<p>
+  Opskriften på en vulkan er:
+</p>
+
+<ol>
+  <li>En flaske sættes i en foliebakke.</li>
+  <li>I flasken tilføjes 5 dråber sæbe og 2 teskefulde natron.</li>
+  <li>Få fat i et bæger med eddike ved at spørge formidleren på posten.</li>
+  <li>Hæld eddiken i flasken (vulkanen!) og se den gå i udbrud.</li>
+</ol>
+  </div>
+  
+    <img
+    class="post-image"
+    src="vulcano_venus.jpg"
+    alt="Post 2"
+    style = "width = 100%;"
+  >
+`,
+
+    3: `
+      <h2>Mars</h2>
+
+  <img
+    class="post-image"
+    src="Mars.png"
+    alt="Mars"
+  >
+
+
+  <p class="post-description">
+    I er ankommet til Mars, vores røde nabo! Dette er den 4. planet i solssystemet. Nysgerrigheden på Mars er stor, og derfor har vi sendt hele 6 robotter til Mars. Men robotterne på Mars' overflade skal passe på, for der er både bjerge, kratere og vulkaner den kan gå ind i. Derfor skal man sørge for at programmere sin robot godt, så det ikke går galt. 
+
+
+  <hr class="divider">
+
+  <div class="assignment">
+
+    <h3>Hvad skal du gøre her?</h3>
+
+    <p>
+      Det er blevet jeres tur til at manøvrere en robot rundt på Mars. Vælg én fra gruppen, som skal være robot. Robotten skal tage bind for øjnene, og stille sig ved START. Resten af gruppen manøvrerer robotten igennem banen ved at komme med kommandoer. I må ikke røre ved robotten. Sørg for, at jeres robot ikke går ind i nogle af vulkanerne!
+    </p>
+  </div>
+
+  <img
+    class = "post-image"
+    src = "mars_rover.png"
+    alt = "Rover på Mars"
+    style = "width = 100%;"
+    >
+`,
+
+    4: `
+      <h2>Jupiter</h2>
+
+  <img
+    class="post-image"
+    src="Jupiter.png"
+    alt="Jupiter"
+  >
+
+
+  <p class="post-description">
+    I er nået til den 5. planet i solssystemet, og også den største af dem alle; nemlig Jupiter. Jupiter er faktisk så stor, at alle de andre planeter i solsystemet ville kunne være inde i den. Derfor undrer det nok heller ikke, at Jupiter også er meget massiv, og derfor har rigtig meget tyngdekraft. Det betyder, at ting faktisk ville veje mere, hvis man var på Jupiter. 
+
+  <hr class="divider">
+
+  <div class="assignment">
+
+    <h3>Hvad skal du gøre her?</h3>
+
+    <p>
+    På denne post skal I finde ud af hvor stor forskellen er på vægt på Jorden og på Jupiter. Derfor skal I veje to mælk: en, der vejer det den ville jo Jorden, og en der vejer det den ville veje på Jupiter. 
+    <p>
+
+    <ol>
+      <li>Start med at sætte 'Jord mælken' på den ene side af vippen. </li>
+      <li>Placer sten på den anden side, en ad gangen, indtil vippen skifter, så stenene vejer mest. Noter hvor mange sten, der skulle til. .</li>
+      <li>Udskift nu 'Jord mælken' med 'Jupiter mælken'. Hvor mange flere sten, skulle der til for at få den vippet over? </li>
+    </ol>
+  </div>
+
+  <img
+  class = "post-image"
+  src = "jupiter_storm.jpg"
+  alt = "Storm på Jupiter"
+  style = "width = 100%;"
+  >
+  
+`,
+
+    5: `
+      <h2>Saturn</h2>
+
+  <img
+    class="post-image"
+    src="saturn.png"
+    alt="Saturn"
+  >
+
+
+  <p class="post-description">
+    I er nu ankommet til den 6. planet, Saturn, bredt kendt for sine fantastisk flotte ringe. Ringene ser faste ud, men er faktisk lavet af små stykker af is og sten. Især isklumperne gør ringene enormt flotte, fordi de genspejler en masse lys fra solen, hvilket gør ringene meget tydelige. Ligesom en masse små spejle!
+
+  <hr class="divider">
+
+  <div class="assignment">
+
+    <h3>Hvad skal du gøre her?</h3>
+
+    <p>
+      Åh nej! Der er et stort rummonster der har pustet Saturns ringe væk. Det er nu jeres job at få dem tilbage på planeten. 
+    </p>
+
+    <p>
+      Stil jer op ved 'kastelinjen' og kast ringene tilbage på Saturn. I har 5 ringe, og derfor 5 forsøg. Se hvor mange ringe I kan få på! 
+    <p>
+    
+  </div>
+
+  <img
+    class = "post-image"
+    src = "saturn_rings.jpg"
+    alt = "Saturns ringe"
+  >
+`,
+
+    6: `
+      <h2>Uranus & Neptun</h2>
+
+  <img
+    class="post-image"
+    src="uranus_neptun.png"
+    alt="Uranus og Neptin"
+  >
+
+
+  <p class="post-description">
+    Velkommen til iskæmperne, Uranus og Neptun, som er den 7. og 8. planet i vores solssystem. Vi kalder dem iskæmper, men i virkeligheden er de faktisk lavet af gas/luft. Gasplaneter kan man ikke lande på, og hvis man prøvede at besøge dem, ville man opleve de vildeste vinde. På Neptun har man endda målt vindhastigheder på 2000 km/t! 
+
+
+  <hr class="divider">
+
+  <div class="assignment">
+
+    <h3>Hvad skal du gøre her?</h3>
+
+    <p>
+      Prøv at efterligne nogle af de vilde vinde her på Jorden.
+    </p>
+
+    <p>
+    Lav sæbebobler ved at bruge nogle af de tilgængelige redskaber, eller bare med dine hænder. 
+    </p>
+
+    <p>
+    Se hvor langt du kan puste din sæbeboble. Hvem kan puste den længst? 
+    </p>
+    
+  </div>
+
+  <img
+    class = "post-image"
+    src = "vinde.jpg"
+    alt = "Neptuns vinde"
+  >
+  
+`,
+
+  };
+
+
+  function openPost(postNumber) {
+
+    document.getElementById("startPage").style.display = "none";
+
+    document.getElementById("postPage").style.display = "block";
+
+    document.getElementById("postInformation").innerHTML =
+      posts[postNumber];
+
+    window.scrollTo(0, 0);
+
+  }
+
+
+  function goBack() {
+
+    document.getElementById("postPage").style.display = "none";
+
+    document.getElementById("startPage").style.display = "block";
+
+    window.scrollTo(0, 0);
+
+  }
+
+</script>
+
+</body>
+
+</html>
