@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Planetstafet</title>
+
+  <style>
+
+    @font-face {
+      font-family: "Sono";
+      src: url("Sono-Regular.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+
+    body {
+      font-family: "Sono", sans-serif;
+
+      background-image: url("background.avif");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+
+      margin: 0;
+      padding: 30px 20px;
+      color: white;
+
+      min-height: 100vh;
+    }
+
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+
+    h1 {
+      text-align: center;
+    }
+
+
+    .intro {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+
+    /* LANGUAGE SWITCH */
+
+    .language-switch {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+
+    .language-button {
+      padding: 10px 18px;
+      border: 1px solid white;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.55);
+      color: white;
+      font-family: "Sono", sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+
+    .language-button.active {
+      background: white;
+      color: black;
+    }
+
+
+    .language-button:hover {
+      opacity: 0.85;
+    }
+
+
+    /* POST BUTTONS */
+
+    .post-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+
+    /* Dette er startside knapperne */
+
+    .post-button {
+      padding: 22px;
+      font-size: 20px;
+      font-family: "Sono", sans-serif;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background: #0D0D0D;
+      color: white;
+      cursor: pointer;
+    }
+
+
+    /* Dette er også startside knapperne, men den farve der skal være når man har cursor over knappen */
+
+    .post-button:hover {
+      background: #212121;
+    }
+
+
+    /* POST PAGE */
+
+    #postPage {
+      display: none;
+    }
+
+
+    /* Dette er selve boksen inde på hver post */
+
+    .post-information {
+      background: rgba(0, 0, 0, 0.88);
+      color: #F2F2F2;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+
+    .post-information h2 {
+      margin-top: 0;
+      font-size: 30px;
+      text-align: center;
+    }
+
+
+    .post-description {
+      font-size: 17px;
+      line-height: 1.6;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+
+    .post-image {
+      width: 99%;
+      border-radius: 12px;
+      margin: 10px auto 25px auto;
+      display: block;
+    }
+
+
+    .divider {
+      border: none;
+      border-top: 2px solid #eeeeee;
+      margin: 25px 0;
+    }
+
+
+    .assignment {
+      background: #292929;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+
+    .assignment h3 {
+      margin-top: 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+
+    .assignment p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+
+    .assignment li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+
+    .hint {
+      margin-top: 18px;
+      padding: 15px;
+      background: #fff8dc;
+      color: #222;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+
+    .back-button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 16px;
+      font-family: "Sono", sans-serif;
+      border: none;
+      border-radius: 10px;
+      background: #292929;
+      color: #F2F2F2;
+      cursor: pointer;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+  <!-- START PAGE -->
+
+  <div id="startPage">
+
+
+    <div class="language-switch">
+
+      <button
+        id="danishButton"
+        class="language-button active"
+        onclick="setLanguage('da')">
+        Dansk
+      </button>
+
+      <button
+        id="englishButton"
+        class="language-button"
+        onclick="setLanguage('en')">
+        English
+      </button>
+
+    </div>
+
+
+    <h1 id="frontTitle">Planetariums Planetstafet</h1>
+
+
+    <p id="frontIntro1" class="intro">
+      Tag på eventyr blandt solssystemets planeter, og lær mere om det, der gør dem unikke.
+    </p>
+
+
+    <p id="frontIntro2" class="intro">
+      Find en planetpost, og klik på planeten i menuen herunder, for at finde ud af, hvad du skal gøre på posten.
+    </p>
+
+
+    <div class="post-buttons">
+
+      <button class="post-button" onclick="openPost(1)">
+        Merkur
+      </button>
+
+      <button class="post-button" onclick="openPost(2)">
+        Venus
+      </button>
+
+      <button class="post-button" onclick="openPost(3)">
+        Mars
+      </button>
+
+      <button class="post-button" onclick="openPost(4)">
+        Jupiter
+      </button>
+
+      <button class="post-button" onclick="openPost(5)">
+        Saturn
+      </button>
+
+      <button class="post-button" onclick="openPost(6)">
+        Uranus & Neptun
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- POST PAGE -->
+
+  <div id="postPage">
+
+    <div
+      id="postInformation"
+      class="post-information">
+    </div>
+
+    <button
+      id="backButton"
+      class="back-button"
+      onclick="goBack()">
+
+      ← Tilbage til oversigt over hele solsystemet
+
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+  /* =========================================
+     LANGUAGE
+     ========================================= */
+
+  let currentLanguage = "da";
+
+
+  const frontPageText = {
+
+    da: {
+      title: "Planetariums Planetstafet",
+      intro1: "Tag på eventyr blandt solssystemets planeter, og lær mere om det, der gør dem unikke.",
+      intro2: "Find en planetpost, og klik på planeten i menuen herunder, for at finde ud af, hvad du skal gøre på posten.",
+      back: "← Tilbage til oversigt over hele solsystemet",
+      buttons: [
+        "Merkur",
+        "Venus",
+        "Mars",
+        "Jupiter",
+        "Saturn",
+        "Uranus & Neptun"
+      ]
+    },
+
+    en: {
+      title: "Planetarium Planet Relay",
+      intro1: "Set out on an adventure among the planets of the Solar System and learn more about what makes each of them unique.",
+      intro2: "Find a planet station, then click the planet in the menu below to discover what you need to do there.",
+      back: "← Back to the Solar System overview",
+      buttons: [
+        "Mercury",
+        "Venus",
+        "Mars",
+        "Jupiter",
+        "Saturn",
+        "Uranus & Neptune"
+      ]
+    }
+
+  };
+
+
+  function setLanguage(language) {
+
+    currentLanguage = language;
+
+    document.documentElement.lang = language;
+
+
+    document.getElementById("frontTitle").textContent =
+      frontPageText[language].title;
+
+    document.getElementById("frontIntro1").textContent =
+      frontPageText[language].intro1;
+
+    document.getElementById("frontIntro2").textContent =
+      frontPageText[language].intro2;
+
+    document.getElementById("backButton").textContent =
+      frontPageText[language].back;
+
+
+    const postButtons = document.querySelectorAll(".post-button");
+
+    postButtons.forEach(function(button, index) {
+
+      button.textContent =
+        frontPageText[language].buttons[index];
+
+    });
+
+
+    document.getElementById("danishButton").classList.toggle(
+      "active",
+      language === "da"
+    );
+
+    document.getElementById("englishButton").classList.toggle(
+      "active",
+      language === "en"
+    );
+
+  }
+
+
+
+  /* =========================================
+     CONTENT FOR EACH POST
+     ========================================= */
+
+  const posts = {
+
+
+    /* =========================================
+       POST 1 — MERKUR / MERCURY
+       ========================================= */
+
+    1: {
+
+      da: `
+
+        <h2>Merkur</h2>
+
+        <img
+          class="post-image"
+          src="Merkur.png"
+          alt="Merkur"
+        >
+
+        <p class="post-description">
+          Velkommen til solssystemets første planet, Merkur! Merkur er faktisk den hurtigste planet i hele
+          solsystemet, for den kommer rundt om solen på bare 88 dage. Måske kan I gøre den kunsten efter?
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>Hvad skal du gøre her?</h3>
+
+          <p>
+            Nu er det tid til at se, om du kan hamle op med Merkur. Løb fra start til slut, og tag tid på hvor
+            hurtigt du kan gøre det. Se hvem fra jeres gruppe, der er hurtigst!
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="merkur2.png"
+          alt="Merkur opgang"
+          style="width: 90%;"
+        >
+
+      `,
+
+
+      en: `
+
+        <h2>Mercury</h2>
+
+        <img
+          class="post-image"
+          src="Merkur.png"
+          alt="Mercury"
+        >
+
+        <p class="post-description">
+          Welcome to Mercury, the first planet in the Solar System! Mercury is actually the fastest planet
+          in the entire Solar System because it travels around the Sun in just 88 days. Maybe you can match it?
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>What do you need to do here?</h3>
+
+          <p>
+            Now it is time to see whether you can keep up with Mercury. Run from start to finish and time how
+            quickly you can do it. See who in your group is the fastest!
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="merkur2.png"
+          alt="Mercury rising"
+          style="width: 90%;"
+        >
+
+      `
+
+    },
+
+
+
+    /* =========================================
+       POST 2 — VENUS
+       ========================================= */
+
+    2: {
+
+      da: `
+
+        <h2>Venus</h2>
+
+        <img
+          class="post-image"
+          src="Venus.png"
+          alt="Venus"
+        >
+
+        <p class="post-description">
+          Velkommen til Venus, solsystemets 2. planet. Venus er en syret verden (i bogstaveligste forstand),
+          for den er både den allervarmeste, og så har den også syreregn. Fordi den er så varm (over 450 grader!),
+          har den også rigtig mange aktive vulkaner.
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>Hvad skal du gøre her?</h3>
+
+          <p>
+            På denne post skal I se, om I kan lave en vulkan ligesom dem på Venus.
+          </p>
+
+          <p>
+            I laver én vulkan samlet i jeres gruppe, så husk det gode samarbejde!
+          </p>
+
+          <p>
+            Opskriften på en vulkan er:
+          </p>
+
+          <ol>
+            <li>En flaske sættes i en foliebakke.</li>
+            <li>I flasken tilføjes 5 dråber sæbe og 2 teskefulde natron.</li>
+            <li>Få fat i et bæger med eddike ved at spørge formidleren på posten.</li>
+            <li>Hæld eddiken i flasken (vulkanen!) og se den gå i udbrud.</li>
+          </ol>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="vulcano_venus.jpg"
+          alt="Venus-vulkan"
+        >
+
+      `,
+
+
+      en: `
+
+        <h2>Venus</h2>
+
+        <img
+          class="post-image"
+          src="Venus.png"
+          alt="Venus"
+        >
+
+        <p class="post-description">
+          Welcome to Venus, the second planet in the Solar System. Venus is an acidic world — quite literally.
+          It is the hottest planet of them all, and its atmosphere also contains clouds of sulfuric acid.
+          Because Venus is so hot (more than 450°C!), it also has many volcanoes.
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>What do you need to do here?</h3>
+
+          <p>
+            At this station, you are going to see whether you can make a volcano like the ones found on Venus.
+          </p>
+
+          <p>
+            Your group will make one volcano together, so remember to work as a team!
+          </p>
+
+          <p>
+            Here is the recipe for your volcano:
+          </p>
+
+          <ol>
+            <li>Place a bottle in a foil tray.</li>
+            <li>Add 5 drops of soap and 2 teaspoons of baking soda to the bottle.</li>
+            <li>Ask the presenter at the station for a cup of vinegar.</li>
+            <li>Pour the vinegar into the bottle — your volcano — and watch it erupt.</li>
+          </ol>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="vulcano_venus.jpg"
+          alt="Venus volcano"
+        >
+
+      `
+
+    },
+
+
+
+    /* =========================================
+       POST 3 — MARS
+       ========================================= */
+
+    3: {
+
+      da: `
+
+        <h2>Mars</h2>
+
+        <img
+          class="post-image"
+          src="Mars.png"
+          alt="Mars"
+        >
+
+        <p class="post-description">
+          I er ankommet til Mars, vores røde nabo! Dette er den 4. planet i solssystemet. Nysgerrigheden på Mars
+          er stor, og derfor har vi sendt hele 6 robotter til Mars. Men robotterne på Mars' overflade skal passe på,
+          for der er både bjerge, kratere og vulkaner, som de kan køre ind i. Derfor skal man sørge for at programmere
+          sin robot rigtig godt, så det ikke går galt.
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>Hvad skal du gøre her?</h3>
+
+          <p>
+            Det er blevet jeres tur til at manøvrere en robot rundt på Mars. Vælg én fra gruppen, som skal være robot.
+            Robotten skal tage bind for øjnene og stille sig ved START. Resten af gruppen manøvrerer robotten igennem
+            banen ved at komme med kommandoer. I må ikke røre ved robotten. Sørg for, at jeres robot ikke går ind i
+            nogle af vulkanerne!
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="mars_rover.png"
+          alt="Rover på Mars"
+          style="width: 100%;"
+        >
+
+      `,
+
+
+      en: `
+
+        <h2>Mars</h2>
+
+        <img
+          class="post-image"
+          src="Mars.png"
+          alt="Mars"
+        >
+
+        <p class="post-description">
+          You have arrived on Mars, our red neighbour! Mars is the fourth planet in the Solar System.
+          We are very curious about Mars, which is why we have sent several robotic explorers there.
+          But robots travelling across the Martian surface have to be careful: there are mountains,
+          craters and volcanoes that can get in their way. That means the robot has to be programmed
+          very carefully so nothing goes wrong.
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>What do you need to do here?</h3>
+
+          <p>
+            Now it is your turn to guide a robot around Mars. Choose one person in the group to be the robot.
+            The robot must put on a blindfold and stand at START. The rest of the group must guide the robot
+            through the course by giving spoken commands. You are not allowed to touch the robot. Make sure
+            your robot does not walk into any of the volcanoes!
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="mars_rover.png"
+          alt="Rover on Mars"
+          style="width: 100%;"
+        >
+
+      `
+
+    },
+
+
+
+    /* =========================================
+       POST 4 — JUPITER
+       ========================================= */
+
+    4: {
+
+      da: `
+
+        <h2>Jupiter</h2>
+
+        <img
+          class="post-image"
+          src="Jupiter.png"
+          alt="Jupiter"
+        >
+
+        <p class="post-description">
+          I er nået til den 5. planet i solssystemet, og også den største af dem alle; nemlig Jupiter.
+          Jupiter er faktisk så stor, at alle de andre planeter i solsystemet ville kunne være inde i den.
+          Derfor undrer det nok heller ikke, at Jupiter også er meget massiv, og derfor har rigtig meget
+          tyngdekraft. Det betyder, at man faktisk ville veje mere, hvis man var på Jupiter.
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>Hvad skal du gøre her?</h3>
+
+          <p>
+            På denne post skal I finde ud af hvor stor forskellen er på vægt på Jorden og på Jupiter.
+            Derfor skal I veje to mælk: en, der vejer det, den ville på Jorden, og en der vejer det,
+            den ville veje på Jupiter.
+          </p>
+
+          <ol>
+            <li>Start med at sætte 'Jord mælken' på den ene side af vippen.</li>
+            <li>Placer sten på den anden side, en ad gangen, indtil vippen skifter, så stenene vejer mest. Noter hvor mange sten, der skulle til.</li>
+            <li>Udskift nu 'Jord mælken' med 'Jupiter mælken'. Hvor mange flere sten skulle der til for at få den vippet over?</li>
+          </ol>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="jupiter_storm.jpg"
+          alt="Storm på Jupiter"
+        >
+
+      `,
+
+
+      en: `
+
+        <h2>Jupiter</h2>
+
+        <img
+          class="post-image"
+          src="Jupiter.png"
+          alt="Jupiter"
+        >
+
+        <p class="post-description">
+          You have reached the fifth planet in the Solar System, and the largest of them all: Jupiter.
+          Jupiter is so large that all the other planets in the Solar System could fit inside it.
+          It is also extremely massive and therefore has very strong gravity. That means you would
+          weigh much more near Jupiter than you do on Earth.
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>What do you need to do here?</h3>
+
+          <p>
+            At this station, you will investigate the difference between weight on Earth and on Jupiter.
+            You will compare two cartons of milk: one representing what it weighs on Earth and one representing
+            what it would weigh with Jupiter's stronger gravity.
+          </p>
+
+          <ol>
+            <li>Start by placing the 'Earth milk' on one side of the balance.</li>
+            <li>Place stones on the other side, one at a time, until the balance tips and the stones become heavier. Write down how many stones it took.</li>
+            <li>Now replace the 'Earth milk' with the 'Jupiter milk'. How many extra stones are needed to tip the balance?</li>
+          </ol>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="jupiter_storm.jpg"
+          alt="Storm on Jupiter"
+        >
+
+      `
+
+    },
+
+
+
+    /* =========================================
+       POST 5 — SATURN
+       ========================================= */
+
+    5: {
+
+      da: `
+
+        <h2>Saturn</h2>
+
+        <img
+          class="post-image"
+          src="saturn.png"
+          alt="Saturn"
+        >
+
+        <p class="post-description">
+          I er nu ankommet til den 6. planet, Saturn, bredt kendt for sine fantastisk flotte ringe.
+          Ringene ser faste ud, men er faktisk lavet af små stykker af is og sten. Især isklumperne gør
+          ringene tydelige, fordi de genspejler en masse lys fra solen. Ligesom en masse små spejle!
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>Hvad skal du gøre her?</h3>
+
+          <p>
+            Åh nej!
+          </p>
+
+          <p>
+            Der er et stort rummonster der har pustet Saturns ringe væk. Det er nu jeres job at få dem
+            tilbage på planeten.
+          </p>
+
+          <p>
+            Stil jer op ved 'kastelinjen' og kast ringene tilbage på Saturn. I har 5 ringe, og derfor
+            5 forsøg. Se hvor mange ringe, I kan få på!
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="saturn_rings.jpg"
+          alt="Saturns ringe"
+        >
+
+      `,
+
+
+      en: `
+
+        <h2>Saturn</h2>
+
+        <img
+          class="post-image"
+          src="saturn.png"
+          alt="Saturn"
+        >
+
+        <p class="post-description">
+          You have now arrived at the sixth planet, Saturn, famous for its spectacular rings.
+          The rings may look solid, but they are actually made of many small pieces of ice and rock.
+          The icy pieces make the rings especially easy to see because they reflect a lot of sunlight —
+          like millions of tiny mirrors!
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>What do you need to do here?</h3>
+
+          <p>
+            Oh no!
+          </p>
+
+          <p>
+            A giant space monster has blown Saturn's rings away. It is now your job to put them back
+            around the planet.
+          </p>
+
+          <p>
+            Stand behind the throwing line and throw the rings back onto Saturn. You have 5 rings,
+            so you get 5 attempts. See how many rings your group can land on Saturn!
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="saturn_rings.jpg"
+          alt="Saturn's rings"
+        >
+
+      `
+
+    },
+
+
+
+    /* =========================================
+       POST 6 — URANUS & NEPTUN / NEPTUNE
+       ========================================= */
+
+    6: {
+
+      da: `
+
+        <h2>Uranus & Neptun</h2>
+
+        <img
+          class="post-image"
+          src="uranus_neptun.png"
+          alt="Uranus og Neptun"
+        >
+
+        <p class="post-description">
+          Velkommen til iskæmperne, Uranus og Neptun, som er den 7. og 8. planet i vores solsystem.
+          Vi kalder dem iskæmper, men de består hovedsageligt af gas og flygtige stoffer omkring deres
+          dybere lag. Man kan ikke lande på dem på samme måde som på Jorden, og hvis man prøvede at
+          besøge dem, ville man opleve de vildeste vinde. På Neptun har man endda målt vindhastigheder
+          på omkring 2000 km/t!
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>Hvad skal du gøre her?</h3>
+
+          <p>
+            Prøv at efterligne nogle af de vilde vinde her på Jorden.
+          </p>
+
+          <p>
+            Lav sæbebobler ved at bruge nogle af de tilgængelige redskaber, eller bare med dine hænder.
+          </p>
+
+          <p>
+            Se hvor langt du kan puste din sæbeboble. Hvem i gruppen kan puste den længst?
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="vinde.jpg"
+          alt="Neptuns vinde"
+        >
+
+      `,
+
+
+      en: `
+
+        <h2>Uranus & Neptune</h2>
+
+        <img
+          class="post-image"
+          src="uranus_neptun.png"
+          alt="Uranus and Neptune"
+        >
+
+        <p class="post-description">
+          Welcome to the ice giants, Uranus and Neptune, the seventh and eighth planets in our Solar System.
+          They are called ice giants because of the kinds of materials inside them, although their outer layers
+          are largely made of gas. You cannot land on them in the same way you can on Earth, and if you tried
+          to visit them you would experience incredibly powerful winds. On Neptune, wind speeds of around
+          2,000 km/h have been measured!
+        </p>
+
+        <hr class="divider">
+
+        <div class="assignment">
+
+          <h3>What do you need to do here?</h3>
+
+          <p>
+            Try to imitate some of those wild winds here on Earth.
+          </p>
+
+          <p>
+            Make soap bubbles using some of the available tools, or simply use your hands.
+          </p>
+
+          <p>
+            See how far you can blow your soap bubble. Who in the group can blow theirs the farthest?
+          </p>
+
+        </div>
+
+        <img
+          class="post-image"
+          src="vinde.jpg"
+          alt="Neptune's winds"
+        >
+
+      `
+
+    }
+
+  };
+
+
+
+  /* =========================================
+     OPEN A POST
+     ========================================= */
+
+  function openPost(postNumber) {
+
+    document.getElementById("startPage").style.display = "none";
+
+    document.getElementById("postPage").style.display = "block";
+
+    document.getElementById("postInformation").innerHTML =
+      posts[postNumber][currentLanguage];
+
+    window.scrollTo(0, 0);
+
+  }
+
+
+
+  /* =========================================
+     RETURN TO FRONT PAGE
+     ========================================= */
+
+  function goBack() {
+
+    document.getElementById("postPage").style.display = "none";
+
+    document.getElementById("startPage").style.display = "block";
+
+    window.scrollTo(0, 0);
+
+  }
+
+
+  /* Initialize the page in Danish */
+
+  setLanguage("da");
+
+
+</script>
+
+</body>
+
+</html>
